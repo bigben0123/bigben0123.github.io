@@ -17,9 +17,8 @@
 <body>
 
 <p>
-	<input type=text id=mytext size=4>
+<input type=text id=mytext size=4 value=100>
 <button onclick="myMove()">Click Me</button> 
-	<a href="rectZoomIn.html"> rect zoom in </a>
 </p>
 
 <div id ="myContainer">
@@ -31,9 +30,10 @@ var id = null;
 var index=0;
 function myMove() {
 
-  var pos = 0;
+  var pos = 40;
   clearInterval(id);
-  id = setInterval(frame, 10);
+   var interval=document.getElementById("mytext");
+  id = setInterval(frame, interval.value);
   
   function frame() {
 // var elem=document.createElement("BUTTON");	
@@ -41,7 +41,7 @@ var elem = document.createElement("input");
   elem.type = "button";
   
     
-    if (pos >= 650) {
+    if (pos >= 700) {
       clearInterval(id);
     } else {
     index++;
@@ -53,12 +53,14 @@ var elem = document.createElement("input");
        elem.style.width = "50px";
       elem.style.backgroundcolor = "georgian";
       elem.style.height = "50px";
-      elem.value="a"+index;
+	  elem.style.verticalalign="top";
+      elem.value=""+index+"aaaa";
+	  
       document.body.appendChild(elem);
     }
   }
 }
 </script>
-	
+
 </body>
 </html>

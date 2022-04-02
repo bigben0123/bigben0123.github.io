@@ -15,7 +15,6 @@
         var ctx = canvas.getContext("2d");
         var canvas_w = canvas.width;
         var canvas_h = canvas.height;
-        var color = "grey";
 
         const startx = canvas_w / 2;
         var x = startx; // 从屏幕中间开始画
@@ -64,6 +63,12 @@
           speedX = range_element2.value;
         };
 
+        //color chage
+        var color = "grey";
+        document.getElementById("color").onchange = function () {
+          color = this.value;
+        };
+
         function start() {
           // the image is fully loaded sostart animating
           requestAnimationFrame(animate);
@@ -102,7 +107,7 @@
           // request another loop of animation
           requestAnimationFrame(animate);
         }
-      };
+      }; //onload()
     </script>
   </head>
   <body>
@@ -119,6 +124,8 @@
         value="100"
       />
       <input id="rangeValue2" type="text" size="2" />
+
+      color: <input id="color" type="text" size="10" />
     </p>
 
     <p>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        background-color: white;
+      }
+      #canvas {
+        border: 1px solid red;
+      }
+    </style>
+    <script>
+      window.onload = function () {
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        var canvas_w = canvas.width;
+        var canvas_h = canvas.height;
+        var color = "grey";
+
+        const startx = canvas_w / 2;
+        var x = startx; // 从屏幕中间开始画
+        var direction = -1; // The image direction: 1==righward, -1==leftward
+        var y = 20; // The Y-coordinate
+
+        // Load a new image
+        // IMPORTANT!!! You must give the image time to load by using img.onload!
+        var img = new Image();
+        img.onload = start;
+        img.src = "lines.png";
+
+        const imgWidth = img.width;
+        console.log("image w,h:", imgWidth, img.height);
+
+        //透明度处理
+        var opacity = 100;
+        var range_element = document.getElementById("rangeValue2");
+        var range_input_element = document.getElementById("slider2");
+        range_element.value = range_input_element.value;
+        opacity = range_element.value;
+        document.getElementById("slider2").onchange = function () {
+          range_element.value = range_input_element.value;
+          opacity = range_element.value;
+        };
+
+        //gap process
+        var gap = 5;
+        var range_element1 = document.getElementById("gapRange");
+        var range_input_element1 = document.getElementById("gapSlider");
+        range_element1.value = range_input_element1.value;
+        gap = range_element1.value;
+        document.getElementById("gapSlider").onchange = function () {
+          range_element1.value = range_input_element1.value;
+          gap = range_element1.value;
+        };
+
+        //speedX process
+        var speedX = 5;
+        var range_element2 = document.getElementById("speedRange");
+        var range_input_element2 = document.getElementById("speedSlider");
+        range_element2.value = range_input_element2.value;
+        speedX = range_element2.value;
+        document.getElementById("speedSlider").onchange = function () {
+          range_element2.value = range_input_element2.value;
+          speedX = range_element2.value;
+        };
+
+        function start() {
+          // the image is fully loaded sostart animating
+          requestAnimationFrame(animate);
+        }
+
+        function animate(time) {
+          // clear the canvas
+          ctx.clearRect(0, 0, canvas_w, canvas_h);
+
+          // draw
+          ctx.drawImage(img, x, y);
+
+          ctx.save();
+          var mask_left_width = canvas_w / 2;
+
+          ctx.filter = " opacity(" + opacity + "%)"; // contrast(1.4) sepia(1) drop-shadow(-9px 9px 3px #e81)
+          ctx.fillStyle = color;
+
+          //画左右两个掩体
+          ctx.fillRect(0, 0, mask_left_width, canvas_h);
+          ctx.fillRect(
+            mask_left_width + Number(gap),
+            0,
+            mask_left_width,
+            canvas_h
+          );
+
+          ctx.restore();
+
+          // update position of image
+          x += Number(speedX) * direction;
+          if (x < startx - imgWidth) {
+            x = startx;
+          }
+
+          // request another loop of animation
+          requestAnimationFrame(animate);
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <canvas id="canvas" width="1920" height="1080"></canvas>
+
+    <p>
+      opacity:
+      <input
+        id="slider2"
+        type="range"
+        min="95"
+        max="100"
+        step="1"
+        value="100"
+      />
+      <input id="rangeValue2" type="text" size="2" />
+    </p>
+
+    <p>
+      gap:
+      <input id="gapSlider" type="range" min="0" max="30" step="1" value="3" />
+      <input id="gapRange" type="text" size="2" />
+    </p>
+
+    <p>
+      speedX:
+      <input
+        id="speedSlider"
+        type="range"
+        min="0"
+        max="10"
+        step="1"
+        value="5"
+      />
+      <input id="speedRange" type="text" size="2" />
+    </p>
+  </body>
+</html>

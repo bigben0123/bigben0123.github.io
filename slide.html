@@ -67,13 +67,13 @@
         var img = new Image();
         img.onload = start;
         img.src = "lines.png";
-
-        const imgWidth = img.width;
-        console.log("image w,h:", imgWidth, img.height);
-
+        var imgWidth=0;
         
         function start() {
           // the image is fully loaded sostart animating
+          
+         imgWidth = img.width;
+          console.log("image w,h:", imgWidth, img.height);
           animate();
         }
 

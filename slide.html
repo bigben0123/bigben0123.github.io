@@ -21,14 +21,6 @@
         var direction = -1; // The image direction: 1==righward, -1==leftward
         var y = 20; // The Y-coordinate
 
-        // Load a new image
-        // IMPORTANT!!! You must give the image time to load by using img.onload!
-        var img = new Image();
-        img.onload = start;
-        img.src = "lines.png";
-
-        const imgWidth = img.width;
-        console.log("image w,h:", imgWidth, img.height);
 
         //透明度处理
         var opacity = 100;
@@ -69,6 +61,17 @@
           color = this.value;
         };
 
+        
+                // Load a new image
+        // IMPORTANT!!! You must give the image time to load by using img.onload!
+        var img = new Image();
+        img.onload = start;
+        img.src = "lines.png";
+
+        const imgWidth = img.width;
+        console.log("image w,h:", imgWidth, img.height);
+
+        
         function start() {
           // the image is fully loaded sostart animating
           requestAnimationFrame(animate);
@@ -106,7 +109,7 @@
 
           // request another loop of animation
           requestAnimationFrame(animate);
-        }
+        }//animate
       }; //onload()
     </script>
   </head>

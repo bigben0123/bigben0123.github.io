@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Copy to Clipboard (Auto After 5s)</title>
+</head>
+<body>
+  <h1>This page will automatically copy a message to your clipboard in 5 seconds.</h1>
+  <p>Click "Cancel" below to prevent copying.</p>
+ 
+  <script>
+  
+  
+    const message = "This is the message that will be copied to your clipboard.";
+    let timeoutId; // To store the timeout reference
+
+
+    timeoutId = setTimeout(async () => {
+      try {
+        // Create a new button element (outside the click event listener)
+        const copyButton = document.createElement('button');
+        copyButton.textContent = "Copy Text";
+
+        // Add click event listener to the new button (outside the click event listener)
+        copyButton.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(message);
+            console.log("Content copied to clipboard.");
+            alert("Text copied successfully!");
+			document.body.removeChild(copyButton);
+          } catch (err) {
+            console.error("Error copying content to clipboard:", err);
+            alert("Error copying message. Please allow clipboard access in your browser settings.");
+          }
+        });
+
+        // Append the new button to the document body (outside the click event listener)
+        document.body.appendChild(copyButton);
+
+        // Simulate a click on the newly created button
+        copyButton.click();
+      } catch (err) {
+        console.error("Error copying content to clipboard:", err);
+        alert("Error copying message. Please allow clipboard access in your browser settings.");
+      }
+    }, 5000); // 5 seconds in milliseconds
+  </script>
+</body>
+</html>

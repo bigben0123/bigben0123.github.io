@@ -6,6 +6,8 @@
   <title>Copy to Clipboard (Auto After 5s)</title>
 </head>
 <body>
+<button id="copy-button" onclick="copyToClipboard()">Copy to clipboard</button>
+	
   <h1>This page will automatically copy a message to your clipboard in 5 seconds.</h1>
   <p>Click "Cancel" below to prevent copying.</p>
  
@@ -45,6 +47,30 @@
         alert("Error copying message. Please allow clipboard access in your browser settings.");
       }
     }, 5000); // 5 seconds in milliseconds
+
+
+function copyToClipboard() {
+  // Get the text from the clipboard
+  const textToCopy = 'your_text_here';
+
+  // Create a new textarea element and give it the text to copy
+  const textarea = document.createElement('textarea');
+  textarea.value = textToCopy;
+  textarea.style.position = 'fixed';  // Prevent the textarea from appearing on the page
+  document.body.appendChild(textarea);
+
+  // Select the text in the textarea
+  textarea.select();
+
+  // Copy the text to the clipboard
+  document.execCommand('copy');
+
+  // Remove the textarea from the page
+  document.body.removeChild(textarea);
+
+  // Show a message to the user that the text has been copied
+  alert('Text copied to clipboard');
+}	  
   </script>
 </body>
 </html>

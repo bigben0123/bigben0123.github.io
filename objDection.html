@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Example</title>
+    <meta charset="UTF-8" />
+    <!-- Load TensorFlow.js. This is required to use coco-ssd model. -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"> </script>
+<!-- Load the coco-ssd model. -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"> </script> 
+ </head>
+
+  <body>
+    <h1>AI Sees You!</h1>
+    <div style="position: relative; ">
+      <img id="mystery" src="/static/dinner.jpg" width="100%" />
+      <canvas id="detection" style="position: absolute; left: 0"></canvas>
+    </div>
+    <div id="app"></div>
+
+
+<!-- Place your code in the script tag below. You can also use an external .js file -->
+<script>
+  // Notice there is no 'import' statement. 'cocoSsd' and 'tf' is
+  // available on the index-page because of the script tag above.
+
+        const mysteryImage = document.getElementById("mystery");
+		
+		/*
+      const myTensor = tf.browser.fromPixels(mysteryImage);
+      // SSD Mobilenet
+      const readyfied = tf.expandDims(myTensor, 0);
+
+      model.executeAsync(readyfied).then((result) => {
+        console.log("First", result[0].shape);
+        result[0].print();
+        console.log("Second", result[1].shape);
+        result[1].print();
+      });
+	  */
+	  
+	  
+
+  // Load the model.
+  cocoSsd.load().then(model => {
+    // detect objects in the image.
+    model.detect(mysteryImage).then(predictions => {
+      console.log('Predictions: ', predictions);
+    });
+  });
+</script>
+
+  </body>
+</html>
